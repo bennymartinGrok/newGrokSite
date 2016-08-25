@@ -78,7 +78,7 @@
 	 */
 	Revealer.prototype.options = {
 		// total number of revealing layers (min is 1)
-		nmbLayers : 3,
+		nmbLayers : 1,
 		// bg color for the revealing layers
 		bgcolor : '#fff',
 		// effect classname

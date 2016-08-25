@@ -20,15 +20,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	</head>
 	<body>
-		<!-- SVG symbol used for navigation arrows -->
-		<svg class="hidden">
-			<defs>
-				<symbol id="icon-arrow" viewBox="0 0 39 51.43">
-					<title>Arrow Left</title>
-					<polygon points="7 25.71 36 45.71 36 26.08 36 5.71 7 25.71" stroke-miterlimit="10" stroke-width="6"/><line x1="3" y1="5.71" x2="3" y2="45.71" fill="none" stroke-miterlimit="10" stroke-width="6"/>
-				</symbol>
-			</defs>
-		</svg>
 		<main class="container">
 			<div class="pages">
 				<div class="page page--current"><!-- home page -->
@@ -39,22 +30,34 @@
 					<div class="logo" id="logo1"></div>
 					
 				</div><!-- /page -->
+				<div class="page" id="pageNews">
+					<blockquote class="quote">
+						<p>This is the News page</p>
+						<footer>Content coming</footer>
+					</blockquote>
+				</div>
 				<div class="page" id="pageWork">
 					<blockquote class="quote">
-						<p>A good programmer is someone who always looks both ways before crossing a one-way street. </p>
-						<footer>Doug Linder</footer>
+						<p>This is the Work page</p>
+						<footer>Content coming</footer>
 					</blockquote>
 				</div>
-				<div class="page">
+				<div class="page" id="pageAbout">
 					<blockquote class="quote">
-						<p>Page 02 copy here </p>
-						<footer>Doug Linder</footer>
+						<p>This is the About page</p>
+						<footer>Content coming</footer>
 					</blockquote>
 				</div>
-				<div class="page">
+				<div class="page" id="pageClients">
 					<blockquote class="quote">
-						<p>And this is page 3 </p>
-						<footer>Doug Linder</footer>
+						<p>This is the Clients page</p>
+						<footer>Content coming</footer>
+					</blockquote>
+				</div>
+				<div class="page" id="pageContact">
+					<blockquote class="quote">
+						<p>This is the Contact page</p>
+						<footer>Content coming</footer>
 					</blockquote>
 				</div>
 			</div><!-- /pages -->
@@ -78,6 +81,13 @@
 		<script src="js/classie.js"></script>
 		<script src="js/main.js"></script>
 		<script>
+		var menuNewsButton = document.getElementById("menuNews");
+		var menuWorkButton = document.getElementById("menuWork");
+		var menuAboutButton = document.getElementById("menuAbout");
+		var menuClientsButton = document.getElementById("menuClients");
+		var menuContactButton = document.getElementById("menuContact");
+		// var menuPagenavButton = document.getElementsByClassName("pagenav__button");
+
 		(function() {
 			var pages = [].slice.call(document.querySelectorAll('.pages > .page')),
 				currentPage = 0,
@@ -86,7 +96,7 @@
 					// the layers are the elements that move from the sides
 					nmbLayers : 3,
 					// bg color of each layer
-					bgcolor : ['#0092DD', '#fff', '#3E3A35'],
+					bgcolor : ['#004358', '#1f8a70', '#bedb39'],
 					// effect classname
 					effect : 'anim--effect-4',
 					onStart : function(direction) {
@@ -107,52 +117,44 @@
 			document.querySelector('#menuNews').addEventListener('click', function() { reveal('cornerbottomright', 1); });
 			document.querySelector('#menuWork').addEventListener('click', function() { reveal('cornerbottomright', 2); });
 			document.querySelector('#menuAbout').addEventListener('click', function() { reveal('cornerbottomright', 3); });
-			document.querySelector('#menuClients').addEventListener('click', function() { reveal('cornerbottomright', 3); });
-			document.querySelector('#menuContact').addEventListener('click', function() { reveal('cornerbottomright', 3); });
+			document.querySelector('#menuClients').addEventListener('click', function() { reveal('cornerbottomright', 4); });
+			document.querySelector('#menuContact').addEventListener('click', function() { reveal('cornerbottomright', 5); });
 			// document.querySelector('#menuGrokshop').addEventListener('click', function() { reveal('cornerbottomright', 3); });
 			// document.querySelector('#menu2015').addEventListener('click', function() { reveal('cornerbottomright', 3); });
 
 			// triggers the effect by calling instance.reveal(direction, callbackTime, callbackFn)
 			function reveal(direction, number) {
-				var callbackTime = 750,
+				var callbackTime = 400,
 					callbackFn = function() {
 						classie.remove(pages[currentPage], 'page--current');
 						currentPage = number;
 						classie.add(pages[currentPage], 'page--current');	
+						menuNewsButton.style.color = menuWorkButton.style.color = menuAboutButton.style.color = menuClientsButton.style.color = menuContactButton.style.color = '#444444';
+						
+						if( currentPage == 0 ) {
+							
+						}
+						else if( currentPage == 1 ) {
+							menuNewsButton.style.color = '#7bc142';	
+						}
+						else if( currentPage == 2 ) {
+							menuWorkButton.style.color = '#7bc142';				
+						}
+						else if( currentPage == 3 ) {
+							menuAboutButton.style.color = '#7bc142';				
+						}
+						else if( currentPage == 4 ) {
+							menuClientsButton.style.color = '#7bc142';				
+						}
+						else if( currentPage == 5 ) {
+							menuContactButton.style.color = '#7bc142';				
+						}
 					};
+					
 
 				revealer.reveal(direction, callbackTime, callbackFn);
 			}
 
-			// changing the effect..
-			// var effectCtrl = document.getElementById('select-effect');
-			// effectCtrl.addEventListener('change', changeEffect);
-			// force it to be the first opt as default
-			// effectCtrl.value = 'effect-4';
-
-			// function changeEffect() {
-			// 	revealer.destroy();
-			// 	var revealerOpts = {
-			// 		// the layers are the elements that move from the sides
-			// 		nmbLayers : Number(this.options[this.selectedIndex].getAttribute('data-layers')),
-			// 		// bg color of each layer
-			// 		bgcolor : this.options[this.selectedIndex].getAttribute('data-colors').split(','),
-			// 		// effect classname
-			// 		effect : 'anim--' + this.value,
-			// 		onStart : function(direction) {
-			// 			// next page gets class page--animate-[direction]
-			// 			var nextPage = pages[currentPage === 0 ? 1 : 0];
-			// 			classie.add(nextPage, 'page--animate-' + direction);
-			// 		},
-			// 		onEnd : function(direction) {
-			// 			// remove class page--animate-[direction] from next page
-			// 			var nextPage = pages[currentPage === 0 ? 1 : 0];
-			// 			nextPage.className = 'page';
-			// 		}
-			// 	};
-				
-			// 	revealer = new Revealer(revealerOpts);
-			// }
 		})();
 
 		function slideshow() {
@@ -186,6 +188,13 @@
 		function onspecialclickTwo() {
 			window.open("http://www.agencypost.com/agency-100-2013/","_blank");
 		};
+
+		function variableDeclarations() {
+			alert("onload");
+			var menuNewsButton = document.getElementById("menuNews");
+		}
+
+		// window.onload = variableDeclarations;
 		</script>
 	</body>
 </html>
